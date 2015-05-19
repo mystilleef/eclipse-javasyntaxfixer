@@ -8,7 +8,7 @@ import com.laboki.eclipse.plugin.javasyntaxfixer.events.FixProblemEvent;
 import com.laboki.eclipse.plugin.javasyntaxfixer.instance.EventBusInstance;
 import com.laboki.eclipse.plugin.javasyntaxfixer.task.Task;
 
-public final class ProblemsHelper extends EventBusInstance {
+public final class ProblemsDebugger extends EventBusInstance {
 
 	@Subscribe
 	@AllowConcurrentEvents
