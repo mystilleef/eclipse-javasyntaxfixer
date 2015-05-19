@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<plugin>
+	<extension point="org.eclipse.ui.startup">
+		<startup class="com.laboki.eclipse.plugin.javasyntaxfixer.Startup"/>
+	</extension>
+</plugin>
