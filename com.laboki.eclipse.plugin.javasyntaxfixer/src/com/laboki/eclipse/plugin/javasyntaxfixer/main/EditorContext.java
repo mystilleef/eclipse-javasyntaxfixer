@@ -69,6 +69,13 @@ public enum EditorContext {
 			.getService(IPartService.class));
 	}
 
+	public static Optional<Control>
+	getControl(final Optional<IEditorPart> editor) {
+		if (!editor.isPresent()) return Optional.absent();
+		return Optional.fromNullable((Control) editor.get()
+			.getAdapter(Control.class));
+	}
+
 	public static Optional<IEditorPart>
 	getEditor() {
 		final Optional<IWorkbenchWindow> window =
