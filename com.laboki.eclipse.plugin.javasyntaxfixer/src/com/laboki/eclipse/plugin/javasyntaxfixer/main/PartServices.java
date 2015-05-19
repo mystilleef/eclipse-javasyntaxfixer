@@ -12,7 +12,6 @@ public final class PartServices extends BaseServices {
 	startServices() {
 		this.startService(new Remover());
 		this.startService(new Inserter());
-		this.startService(new ProblemsDebugger());
 		this.startService(new ProblemsFixer());
 		this.startService(new ProblemsFilterer());
 		this.startService(new ProblemsFinder());
