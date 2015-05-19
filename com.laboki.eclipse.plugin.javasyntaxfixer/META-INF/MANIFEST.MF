@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: com.laboki.eclipse.plugin.javasyntaxfixer;singleton:=true
-Bundle-Version: 20150519
+Bundle-Version: 20150519.1
 Bundle-Activator: com.laboki.eclipse.plugin.javasyntaxfixer.Activator
 Bundle-Vendor: %Bundle-Vendor
 Require-Bundle: org.eclipse.ui;bundle-version="3.106.1",
@@ -61,6 +61,8 @@ Export-Package: com.google.common.annotations,
 Bundle-ClassPath: .,
  libs/guava-18.0.jar
 Import-Package: org.eclipse.jface.text,
+ org.eclipse.jface.text.contentassist,
+ org.eclipse.jface.text.quickassist,
  org.eclipse.jface.text.source,
  org.eclipse.ui,
  org.eclipse.ui.part,
