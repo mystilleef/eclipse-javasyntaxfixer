@@ -20,14 +20,6 @@ public final class Scheduler extends EventBusInstance {
 	@Subscribe
 	@AllowConcurrentEvents
 	public void
-	eventHandler(final SchedulerTaskEvent event) {
-		EditorContext.cancelAllTasks();
-		this.checkErrors();
-	}
-
-	@Subscribe
-	@AllowConcurrentEvents
-	public void
 	eventHandler(final AssistSessionStartedEvent event) {
 		EditorContext.cancelAllTasks();
 		this.canSchedule = false;
@@ -38,6 +30,15 @@ public final class Scheduler extends EventBusInstance {
 	public void
 	eventHandler(final AssistSessionEndedEvent event) {
 		this.canSchedule = true;
+		this.checkErrors();
+	}
+
+	@Subscribe
+	@AllowConcurrentEvents
+	public void
+	eventHandler(final SchedulerTaskEvent event) {
+		EditorContext.cancelAllTasks();
+		this.checkErrors();
 	}
 
 	private void
