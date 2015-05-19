@@ -7,7 +7,7 @@ import com.laboki.eclipse.plugin.javasyntaxfixer.instance.Instance;
 
 public abstract class BaseTask implements Runnable, Instance, ExecuteTask {
 
-	public static final String FAMILY = "DefaultPluginTaskFamily";
+	public static final String FAMILY = "JavaSyntaxFixerPluginTaskFamily";
 	private final TaskJob job;
 	private long delay = 0;
 	private Object object;
