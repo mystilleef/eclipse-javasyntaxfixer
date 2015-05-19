@@ -130,7 +130,6 @@ public enum EditorContext {
 	public static void
 	cancelAllTasks() {
 		EditorContext.JOB_MANAGER.cancel(Scheduler.FAMILY);
-		EditorContext.JOB_MANAGER.cancel(CheckerContext.FAMILY);
 		EditorContext.JOB_MANAGER.cancel(BaseListener.FAMILY);
 	}
 
