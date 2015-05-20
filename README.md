@@ -10,6 +10,10 @@ Automatically fixes Java syntax errors caused by missing, or unneeded, punctuati
 ### Development Status
 
 * Testing
+ 
+### Updatesite
+
+* __[Updatesite](https://raw.github.com/mystilleef/eclipse-javasyntaxfixer-updatesite/master/com.laboki.eclipse.updatesite.javasyntaxfixer)__
 
 ### Requirement
 
