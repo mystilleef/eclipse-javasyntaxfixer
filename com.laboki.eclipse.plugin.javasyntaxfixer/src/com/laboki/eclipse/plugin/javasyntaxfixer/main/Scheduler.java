@@ -13,6 +13,7 @@ import com.laboki.eclipse.plugin.javasyntaxfixer.task.TaskMutexRule;
 
 public final class Scheduler extends EventBusInstance {
 
+	public static final int DELAY = 10;
 	public static final TaskMutexRule RULE = new TaskMutexRule();
 	public static final String FAMILY = "JsyntaxSchedulerTaskFamily";
 	private boolean canSchedule = true;
@@ -37,7 +38,6 @@ public final class Scheduler extends EventBusInstance {
 	@AllowConcurrentEvents
 	public void
 	eventHandler(final SchedulerTaskEvent event) {
-		EditorContext.cancelAllTasks();
 		this.checkErrors();
 	}
 
@@ -55,11 +55,12 @@ public final class Scheduler extends EventBusInstance {
 			@Override
 			public void
 			execute() {
+				EditorContext.cancelAllTasks();
 				EventBus.post(new CheckErrorsEvent());
 			}
 		}.setFamily(Scheduler.FAMILY)
 			.setRule(Scheduler.RULE)
-			.setDelay(125)
+			.setDelay(Scheduler.DELAY)
 			.start();
 	}
 }

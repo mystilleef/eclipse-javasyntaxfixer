@@ -34,14 +34,14 @@ public final class Inserter extends EventBusInstance {
 			}
 		}.setFamily(Scheduler.FAMILY)
 			.setRule(Scheduler.RULE)
-			.setDelay(125)
+			.setDelay(Scheduler.DELAY)
 			.start();
 	}
 
 	private final class InserterTask extends AsyncTask {
 
 		public InserterTask() {
-			this.setDelay(125);
+			this.setDelay(Scheduler.DELAY);
 			this.setFamily(Scheduler.FAMILY);
 			this.setRule(Scheduler.RULE);
 		}

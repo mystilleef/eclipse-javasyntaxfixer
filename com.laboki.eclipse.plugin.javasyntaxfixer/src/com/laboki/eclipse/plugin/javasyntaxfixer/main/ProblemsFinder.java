@@ -61,7 +61,7 @@ public final class ProblemsFinder extends EventBusInstance {
 			}
 		}.setFamily(Scheduler.FAMILY)
 			.setRule(Scheduler.RULE)
-			.setDelay(125)
+			.setDelay(Scheduler.DELAY)
 			.start();
 	}
 }

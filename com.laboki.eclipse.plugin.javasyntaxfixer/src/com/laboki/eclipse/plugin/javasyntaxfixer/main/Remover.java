@@ -32,7 +32,7 @@ public final class Remover extends EventBusInstance {
 			execute() {
 				new RemoverTask().setObject(event).start();
 			}
-		}.setDelay(125)
+		}.setDelay(Scheduler.DELAY)
 			.setFamily(Scheduler.FAMILY)
 			.setRule(Scheduler.RULE)
 			.start();
@@ -41,7 +41,7 @@ public final class Remover extends EventBusInstance {
 	private final class RemoverTask extends AsyncTask {
 
 		public RemoverTask() {
-			this.setDelay(125);
+			this.setDelay(Scheduler.DELAY);
 			this.setRule(Scheduler.RULE);
 			this.setFamily(Scheduler.FAMILY);
 		}

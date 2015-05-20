@@ -38,7 +38,7 @@ public final class ErrorChecker extends EventBusInstance {
 			}
 		}.setRule(Scheduler.RULE)
 			.setFamily(Scheduler.FAMILY)
-			.setDelay(125)
+			.setDelay(Scheduler.DELAY)
 			.start();
 	}
 }
