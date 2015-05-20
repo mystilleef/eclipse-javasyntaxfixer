@@ -72,19 +72,34 @@ public final class ProblemsFixer extends EventBusInstance {
 
 			private String
 			getFirstArgument(final IProblem problem) {
-				return problem.getArguments()[0].trim();
+				final String argument = problem.getArguments()[0].trim();
+				return this.getPunctuation(argument);
 			}
 
 			private String
 			getSecondArgument(final IProblem problem) {
-				return problem.getArguments()[1].trim();
+				final String argument = problem.getArguments()[1].trim();
+				return this.getPunctuation(argument);
+			}
+
+			private String
+			getPunctuation(final String argument) {
+				if (EditorContext.isPunctuation(argument)) return argument;
+				return this.getPunctuationFromArgument(argument);
+			}
+
+			private String
+			getPunctuationFromArgument(final String argument) {
+				for (final String string : EditorContext.splitString(argument))
+					if (EditorContext.isPunctuation(string)) return string;
+				return "";
 			}
 
 			private int
 			getLocation(final IProblem problem) {
 				return problem.getSourceEnd() + 1;
 			}
-		}.setDelay(125)
+		}.setDelay(Scheduler.DELAY)
 			.setRule(Scheduler.RULE)
 			.setFamily(Scheduler.FAMILY)
 			.start();

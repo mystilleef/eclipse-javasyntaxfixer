@@ -55,7 +55,6 @@ public final class ProblemsFilterer extends EventBusInstance {
 
 			private IProblem
 			getSemiColonProblem() {
-				System.out.println("get semicolon problem");
 				for (final IProblem problem : event.getProblems())
 					if (this.isSemiColon(problem)) return problem;
 				return null;
@@ -83,9 +82,39 @@ public final class ProblemsFilterer extends EventBusInstance {
 			private boolean
 			isRelevantProblem(final IProblem problem) {
 				return problem.isError()
-					&& ProblemsFilterer.PROBLEM_IDS.contains(problem.getID());
+					&& ProblemsFilterer.PROBLEM_IDS.contains(problem.getID())
+					&& this.problemHasRelevantArgument(problem);
 			}
-		}.setDelay(125)
+
+			private boolean
+			problemHasRelevantArgument(final IProblem problem) {
+				final String[] arguments = problem.getArguments();
+				if (arguments.length < 1) return false;
+				if (this.argumentsArePunctuation(arguments)) return true;
+				return this.argumentsHavePunctuation(arguments);
+			}
+
+			private boolean
+			argumentsArePunctuation(final String[] arguments) {
+				for (final String string : arguments)
+					if (EditorContext.isPunctuation(string)) return true;
+				return false;
+			}
+
+			private boolean
+			argumentsHavePunctuation(final String[] arguments) {
+				for (final String argument : arguments)
+					return this.splitArgumentHasPunctuation(argument);
+				return false;
+			}
+
+			private boolean
+			splitArgumentHasPunctuation(final String argument) {
+				for (final String string : EditorContext.splitString(argument))
+					if (EditorContext.isPunctuation(string)) return true;
+				return false;
+			}
+		}.setDelay(Scheduler.DELAY)
 			.setRule(Scheduler.RULE)
 			.setFamily(Scheduler.FAMILY)
 			.start();

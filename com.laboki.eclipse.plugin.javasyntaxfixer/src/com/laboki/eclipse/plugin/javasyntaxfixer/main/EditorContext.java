@@ -2,6 +2,7 @@ package com.laboki.eclipse.plugin.javasyntaxfixer.main;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.jobs.IJobManager;
@@ -29,7 +30,9 @@ import org.eclipse.ui.texteditor.DefaultMarkerAnnotationAccess;
 import org.eclipse.ui.texteditor.IDocumentProvider;
 import org.eclipse.ui.texteditor.ITextEditor;
 
+import com.google.common.base.CharMatcher;
 import com.google.common.base.Optional;
+import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.laboki.eclipse.plugin.javasyntaxfixer.Activator;
 import com.laboki.eclipse.plugin.javasyntaxfixer.listeners.BaseListener;
@@ -59,6 +62,8 @@ public enum EditorContext {
 			EditorContext.LINK_SLAVE);
 	private static final DefaultMarkerAnnotationAccess ANNOTATION_ACCESS =
 		new DefaultMarkerAnnotationAccess();
+
+	public static final String PUNCTUATION = "\\p{Punct}";
 
 	public static Optional<IPartService>
 	getPartService() {
@@ -265,5 +270,18 @@ public enum EditorContext {
 	private static Optional<IDocumentProvider>
 	getDocumentProvider(final Optional<IEditorPart> editor) {
 		return Optional.fromNullable(((ITextEditor) editor.get()).getDocumentProvider());
+	}
+
+	public static Iterable<String>
+	splitString(final String string) {
+		return Splitter.on(CharMatcher.WHITESPACE)
+			.trimResults()
+			.omitEmptyStrings()
+			.split(string);
+	}
+
+	public static boolean
+	isPunctuation(final String string) {
+		return Pattern.matches(EditorContext.PUNCTUATION, string);
 	}
 }
