@@ -22,14 +22,6 @@ public final class ProblemsFinder extends EventBusInstance {
 	private final Optional<ICompilationUnit> unit =
 		ProblemsFinder.getCompilationUnit();
 
-	private static Optional<ICompilationUnit>
-	getCompilationUnit() {
-		final Optional<IFile> file =
-			EditorContext.getFile(EditorContext.getEditor());
-		if (!file.isPresent()) return Optional.absent();
-		return Optional.fromNullable(JavaCore.createCompilationUnitFrom(file.get()));
-	}
-
 	@Subscribe
 	@AllowConcurrentEvents
 	public void
@@ -39,17 +31,15 @@ public final class ProblemsFinder extends EventBusInstance {
 			@Override
 			public void
 			execute() {
-				final ImmutableList<IProblem> problems =
-					ImmutableList.copyOf(this.getCompilerProblems());
-				EventBus.post(new ProblemsFoundEvent(problems));
+				EventBus.post(new ProblemsFoundEvent(this.getCompilerProblems()));
 			}
 
-			private IProblem[]
+			private ImmutableList<IProblem>
 			getCompilerProblems() {
 				final Optional<CompilationUnit> node =
 					this.createCompilationUnitNode();
-				if (!node.isPresent()) return new IProblem[0];
-				return node.get().getProblems();
+				if (!node.isPresent()) return ImmutableList.copyOf(new IProblem[0]);
+				return ImmutableList.copyOf(node.get().getProblems());
 			}
 
 			private Optional<CompilationUnit>
@@ -63,5 +53,13 @@ public final class ProblemsFinder extends EventBusInstance {
 			.setRule(Scheduler.RULE)
 			.setDelay(Scheduler.DELAY)
 			.start();
+	}
+
+	private static Optional<ICompilationUnit>
+	getCompilationUnit() {
+		final Optional<IFile> file =
+			EditorContext.getFile(EditorContext.getEditor());
+		if (!file.isPresent()) return Optional.absent();
+		return Optional.fromNullable(JavaCore.createCompilationUnitFrom(file.get()));
 	}
 }
