@@ -84,14 +84,14 @@ public final class ProblemsFixer extends EventBusInstance {
 
 			private String
 			getPunctuation(final String argument) {
-				if (EditorContext.isPunctuation(argument)) return argument;
+				if (EditorContext.isPunctuation(argument)) return argument.trim();
 				return this.getPunctuationFromArgument(argument);
 			}
 
 			private String
 			getPunctuationFromArgument(final String argument) {
 				for (final String string : EditorContext.splitString(argument))
-					if (EditorContext.isPunctuation(string)) return string;
+					if (EditorContext.isPunctuation(string)) return string.trim();
 				return "";
 			}
 

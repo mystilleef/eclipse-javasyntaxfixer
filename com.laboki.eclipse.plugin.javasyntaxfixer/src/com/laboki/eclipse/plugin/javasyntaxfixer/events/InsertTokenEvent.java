@@ -11,7 +11,7 @@ public final class InsertTokenEvent {
 	}
 
 	public String
-	getCharacter() {
+	getToken() {
 		return this.character;
 	}
 

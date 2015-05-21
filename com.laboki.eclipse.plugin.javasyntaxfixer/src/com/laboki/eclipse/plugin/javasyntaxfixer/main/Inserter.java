@@ -55,38 +55,13 @@ public final class Inserter extends EventBusInstance {
 		private boolean
 		isValid() {
 			if (!Inserter.this.document.isPresent()) return false;
-			if (this.isInValidToken()) return false;
-			if (this.isEndOfDocument()) return false;
-			// if (this.tokenIsAlreadyInserted()) return false;
-			return true;
+			return !this.isInValidToken();
 		}
 
 		private boolean
 		isInValidToken() {
-			if (this.getToken().trim().isEmpty()) return true;
+			if (this.getToken().isEmpty()) return true;
 			return this.getToken().length() > 1;
-		}
-
-		private boolean
-		isEndOfDocument() {
-			return Inserter.this.document.get().getLength() == this.getLocation();
-		}
-
-		@SuppressWarnings("unused")
-		private boolean
-		tokenIsAlreadyInserted() {
-			try {
-				return String.valueOf(this.getTokenAtLocation())
-					.equals(this.getToken());
-			}
-			catch (final BadLocationException e) {
-				return false;
-			}
-		}
-
-		private char
-		getTokenAtLocation() throws BadLocationException {
-			return Inserter.this.document.get().getChar(this.getLocation());
 		}
 
 		private void
@@ -108,7 +83,7 @@ public final class Inserter extends EventBusInstance {
 
 		private String
 		getToken() {
-			return ((InsertTokenEvent) this.getObject()).getCharacter();
+			return ((InsertTokenEvent) this.getObject()).getToken();
 		}
 
 		private int

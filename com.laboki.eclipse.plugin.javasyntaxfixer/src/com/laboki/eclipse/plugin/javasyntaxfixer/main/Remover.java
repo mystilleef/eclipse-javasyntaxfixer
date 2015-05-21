@@ -55,20 +55,13 @@ public final class Remover extends EventBusInstance {
 		private boolean
 		isValid() {
 			if (!Remover.this.document.isPresent()) return false;
-			if (this.isInValidToken()) return false;
-			if (this.isEndOfDocument()) return false;
-			return true;
+			return !this.isInValidToken();
 		}
 
 		private boolean
 		isInValidToken() {
-			if (this.getToken().trim().isEmpty()) return true;
+			if (this.getToken().isEmpty()) return true;
 			return this.getToken().length() > 1;
-		}
-
-		private boolean
-		isEndOfDocument() {
-			return Remover.this.document.get().getLength() == this.getLocation();
 		}
 
 		private void
