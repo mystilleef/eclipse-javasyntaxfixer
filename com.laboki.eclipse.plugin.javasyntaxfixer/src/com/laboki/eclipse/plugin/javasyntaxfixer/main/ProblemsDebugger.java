@@ -24,15 +24,15 @@ public final class ProblemsDebugger extends EventBusInstance {
 
 			private void
 			print(final IProblem problem) {
+				this.printIdString(problem);
+				this.printArguments(problem);
+				this.printMessage(problem);
+			}
+
+			private void
+			printIdString(final IProblem problem) {
 				System.out.println("===");
 				System.out.println(this.getIdString(problem));
-				System.out.println("--");
-				for (final String string : problem.getArguments())
-					System.out.println(string);
-				System.out.println("--");
-				System.out.println(problem.getMessage());
-				System.out.println("===");
-				System.out.println();
 			}
 
 			private String
@@ -62,6 +62,21 @@ public final class ProblemsDebugger extends EventBusInstance {
 						break;
 				}
 				return string;
+			}
+
+			private void
+			printArguments(final IProblem problem) {
+				System.out.println("--");
+				for (final String string : problem.getArguments())
+					System.out.println(string);
+				System.out.println("--");
+			}
+
+			private void
+			printMessage(final IProblem problem) {
+				System.out.println(problem.getMessage());
+				System.out.println("===");
+				System.out.println();
 			}
 		}.setDelay(125)
 			.setRule(Scheduler.RULE)
