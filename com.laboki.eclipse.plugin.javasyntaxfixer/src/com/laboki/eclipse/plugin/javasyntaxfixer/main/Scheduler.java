@@ -22,8 +22,8 @@ public final class Scheduler extends EventBusInstance {
 	@AllowConcurrentEvents
 	public void
 	eventHandler(final AssistSessionStartedEvent event) {
-		EditorContext.cancelAllTasks();
 		this.canSchedule = false;
+		EditorContext.cancelAllTasks();
 	}
 
 	@Subscribe
