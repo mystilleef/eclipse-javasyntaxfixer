@@ -62,7 +62,6 @@ public enum EditorContext {
 			EditorContext.LINK_SLAVE);
 	private static final DefaultMarkerAnnotationAccess ANNOTATION_ACCESS =
 		new DefaultMarkerAnnotationAccess();
-
 	public static final String PUNCTUATION = "\\p{Punct}";
 
 	public static Optional<IPartService>
