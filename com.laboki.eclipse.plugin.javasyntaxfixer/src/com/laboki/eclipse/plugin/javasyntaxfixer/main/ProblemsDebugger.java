@@ -63,7 +63,7 @@ public final class ProblemsDebugger extends EventBusInstance {
 				}
 				return string;
 			}
-		}.setDelay(125)
+		}.setDelay(Scheduler.DELAY)
 			.setRule(Scheduler.RULE)
 			.setFamily(Scheduler.FAMILY)
 			.start();
