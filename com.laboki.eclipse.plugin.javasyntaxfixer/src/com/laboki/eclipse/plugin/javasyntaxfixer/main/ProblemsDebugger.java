@@ -25,14 +25,14 @@ public final class ProblemsDebugger extends EventBusInstance {
 			private void
 			print(final IProblem problem) {
 				System.out.println("===");
-				System.out.println(this.getIdString(problem) + problem.getID());
-				final String[] arguments = problem.getArguments();
+				System.out.println(this.getIdString(problem));
 				System.out.println("--");
-				for (final String string : arguments)
+				for (final String string : problem.getArguments())
 					System.out.println(string);
 				System.out.println("--");
 				System.out.println(problem.getMessage());
 				System.out.println("===");
+				System.out.println();
 			}
 
 			private String
