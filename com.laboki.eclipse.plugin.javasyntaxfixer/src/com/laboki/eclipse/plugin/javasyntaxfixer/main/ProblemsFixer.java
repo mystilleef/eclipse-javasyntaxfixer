@@ -72,14 +72,12 @@ public final class ProblemsFixer extends EventBusInstance {
 
 			private String
 			getFirstArgument(final IProblem problem) {
-				final String argument = problem.getArguments()[0].trim();
-				return this.getPunctuation(argument);
+				return this.getPunctuation(problem.getArguments()[0].trim());
 			}
 
 			private String
 			getSecondArgument(final IProblem problem) {
-				final String argument = problem.getArguments()[1].trim();
-				return this.getPunctuation(argument);
+				return this.getPunctuation(problem.getArguments()[1].trim());
 			}
 
 			private String
