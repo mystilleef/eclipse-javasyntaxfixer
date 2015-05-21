@@ -9,7 +9,7 @@ Automatically fixes Java syntax errors caused by missing, or unneeded, punctuati
 
 ### Development Status
 
-* Testing
+* Testing only
  
 ### Updatesite
 
