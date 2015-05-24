@@ -10,6 +10,8 @@ import com.laboki.eclipse.plugin.javasyntaxfixer.task.Task;
 
 public final class ProblemsDebugger extends EventBusInstance {
 
+	private static final int DELAY = 125;
+
 	@Subscribe
 	@AllowConcurrentEvents
 	public static void
@@ -78,7 +80,7 @@ public final class ProblemsDebugger extends EventBusInstance {
 				System.out.println("===");
 				System.out.println();
 			}
-		}.setDelay(125)
+		}.setDelay(ProblemsDebugger.DELAY)
 			.setRule(Scheduler.RULE)
 			.setFamily(Scheduler.FAMILY)
 			.start();
