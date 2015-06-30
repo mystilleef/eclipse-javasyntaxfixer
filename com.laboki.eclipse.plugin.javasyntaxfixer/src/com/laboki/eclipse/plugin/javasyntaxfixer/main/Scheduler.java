@@ -13,7 +13,7 @@ import com.laboki.eclipse.plugin.javasyntaxfixer.task.TaskMutexRule;
 
 public final class Scheduler extends EventBusInstance {
 
-	public static final int DELAY = 10;
+	public static final int DELAY = 100;
 	public static final TaskMutexRule RULE = new TaskMutexRule();
 	public static final String FAMILY = "JsyntaxSchedulerTaskFamily";
 	private boolean canSchedule = true;
