@@ -69,14 +69,14 @@ public enum EditorContext {
 		final Optional<IWorkbenchWindow> window =
 			EditorContext.getActiveWorkbenchWindow();
 		if (!window.isPresent()) return Optional.absent();
-		return Optional.fromNullable((IPartService) window.get()
+		return Optional.fromNullable(window.get()
 			.getService(IPartService.class));
 	}
 
 	public static Optional<Control>
 	getControl(final Optional<IEditorPart> editor) {
 		if (!editor.isPresent()) return Optional.absent();
-		return Optional.fromNullable((Control) editor.get()
+		return Optional.fromNullable(editor.get()
 			.getAdapter(Control.class));
 	}
 
