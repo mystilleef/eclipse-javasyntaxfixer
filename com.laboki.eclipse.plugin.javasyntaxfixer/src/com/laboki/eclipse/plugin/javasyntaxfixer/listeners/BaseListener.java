@@ -5,6 +5,7 @@ import com.laboki.eclipse.plugin.javasyntaxfixer.instance.EventBusInstance;
 import com.laboki.eclipse.plugin.javasyntaxfixer.instance.Instance;
 import com.laboki.eclipse.plugin.javasyntaxfixer.main.EditorContext;
 import com.laboki.eclipse.plugin.javasyntaxfixer.main.EventBus;
+import com.laboki.eclipse.plugin.javasyntaxfixer.main.Scheduler;
 import com.laboki.eclipse.plugin.javasyntaxfixer.task.BaseTask;
 import com.laboki.eclipse.plugin.javasyntaxfixer.task.Task;
 import com.laboki.eclipse.plugin.javasyntaxfixer.task.TaskMutexRule;
@@ -48,7 +49,8 @@ public abstract class BaseListener extends EventBusInstance {
 			@Override
 			public boolean
 			shouldSchedule() {
-				return BaseTask.noTaskFamilyExists(BaseListener.FAMILY);
+				return BaseTask.noTaskFamilyExists(BaseListener.FAMILY)
+					&& BaseTask.noTaskFamilyExists(Scheduler.FAMILY);
 			}
 
 			@Override

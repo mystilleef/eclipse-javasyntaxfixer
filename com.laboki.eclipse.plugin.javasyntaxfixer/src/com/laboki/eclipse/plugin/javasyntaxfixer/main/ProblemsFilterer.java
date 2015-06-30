@@ -48,11 +48,6 @@ public final class ProblemsFilterer extends EventBusInstance {
 				return this.isRelevantProblem(problem) && this.isSemiColon(problem);
 			}
 
-			private void
-			fix(final IProblem problem) {
-				if (problem != null) EventBus.post(new FixProblemEvent(problem));
-			}
-
 			private IProblem
 			getSemiColonProblem() {
 				for (final IProblem problem : event.getProblems())
@@ -70,6 +65,11 @@ public final class ProblemsFilterer extends EventBusInstance {
 			private boolean
 			isSemiColonCharacter(final String string) {
 				return string.trim().equals(ProblemsFilterer.SEMICOLON);
+			}
+
+			private void
+			fix(final IProblem problem) {
+				if (problem != null) EventBus.post(new FixProblemEvent(problem));
 			}
 
 			private IProblem
@@ -114,6 +114,7 @@ public final class ProblemsFilterer extends EventBusInstance {
 					if (EditorContext.isPunctuation(string)) return true;
 				return false;
 			}
+
 		}.setDelay(Scheduler.DELAY)
 			.setRule(Scheduler.RULE)
 			.setFamily(Scheduler.FAMILY)

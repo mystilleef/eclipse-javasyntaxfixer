@@ -9,6 +9,7 @@ import com.laboki.eclipse.plugin.javasyntaxfixer.events.CheckErrorsEvent;
 import com.laboki.eclipse.plugin.javasyntaxfixer.events.FindErrorsEvent;
 import com.laboki.eclipse.plugin.javasyntaxfixer.instance.EventBusInstance;
 import com.laboki.eclipse.plugin.javasyntaxfixer.task.AsyncTask;
+import com.laboki.eclipse.plugin.javasyntaxfixer.task.BaseTask;
 
 public final class ErrorChecker extends EventBusInstance {
 
@@ -35,6 +36,12 @@ public final class ErrorChecker extends EventBusInstance {
 			private void
 			findErrors() {
 				EventBus.post(new FindErrorsEvent());
+			}
+
+			@Override
+			protected boolean
+			shouldSchedule() {
+				return BaseTask.noTaskFamilyExists(Scheduler.FAMILY);
 			}
 		}.setRule(Scheduler.RULE)
 			.setFamily(Scheduler.FAMILY)

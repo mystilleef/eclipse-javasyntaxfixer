@@ -12,6 +12,7 @@ import com.google.common.eventbus.Subscribe;
 import com.laboki.eclipse.plugin.javasyntaxfixer.events.InsertTokenEvent;
 import com.laboki.eclipse.plugin.javasyntaxfixer.instance.EventBusInstance;
 import com.laboki.eclipse.plugin.javasyntaxfixer.task.AsyncTask;
+import com.laboki.eclipse.plugin.javasyntaxfixer.task.BaseTask;
 import com.laboki.eclipse.plugin.javasyntaxfixer.task.Task;
 
 public final class Inserter extends EventBusInstance {
@@ -31,6 +32,12 @@ public final class Inserter extends EventBusInstance {
 			public void
 			execute() {
 				new InserterTask().setObject(event).start();
+			}
+
+			@Override
+			protected boolean
+			shouldSchedule() {
+				return BaseTask.noTaskFamilyExists(Scheduler.FAMILY);
 			}
 		}.setFamily(Scheduler.FAMILY)
 			.setRule(Scheduler.RULE)
@@ -81,14 +88,14 @@ public final class Inserter extends EventBusInstance {
 				this.getToken());
 		}
 
-		private String
-		getToken() {
-			return ((InsertTokenEvent) this.getObject()).getToken();
-		}
-
 		private int
 		getLocation() {
 			return ((InsertTokenEvent) this.getObject()).getLocation();
+		}
+
+		private String
+		getToken() {
+			return ((InsertTokenEvent) this.getObject()).getToken();
 		}
 	}
 }

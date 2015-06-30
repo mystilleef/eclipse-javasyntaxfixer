@@ -8,6 +8,7 @@ import com.laboki.eclipse.plugin.javasyntaxfixer.events.FixProblemEvent;
 import com.laboki.eclipse.plugin.javasyntaxfixer.events.InsertTokenEvent;
 import com.laboki.eclipse.plugin.javasyntaxfixer.events.RemoveTokenEvent;
 import com.laboki.eclipse.plugin.javasyntaxfixer.instance.EventBusInstance;
+import com.laboki.eclipse.plugin.javasyntaxfixer.task.BaseTask;
 import com.laboki.eclipse.plugin.javasyntaxfixer.task.Task;
 
 public final class ProblemsFixer extends EventBusInstance {
@@ -63,6 +64,11 @@ public final class ProblemsFixer extends EventBusInstance {
 				return this.getSecondArgument(problem);
 			}
 
+			private String
+			getSecondArgument(final IProblem problem) {
+				return this.getPunctuation(problem.getArguments()[1].trim());
+			}
+
 			private void
 			emitRemoveTokenEvent(final IProblem problem) {
 				final String token = this.getFirstArgument(problem);
@@ -73,11 +79,6 @@ public final class ProblemsFixer extends EventBusInstance {
 			private String
 			getFirstArgument(final IProblem problem) {
 				return this.getPunctuation(problem.getArguments()[0].trim());
-			}
-
-			private String
-			getSecondArgument(final IProblem problem) {
-				return this.getPunctuation(problem.getArguments()[1].trim());
 			}
 
 			private String
@@ -96,6 +97,12 @@ public final class ProblemsFixer extends EventBusInstance {
 			private int
 			getLocation(final IProblem problem) {
 				return problem.getSourceEnd() + 1;
+			}
+
+			@Override
+			protected boolean
+			shouldSchedule() {
+				return BaseTask.noTaskFamilyExists(Scheduler.FAMILY);
 			}
 		}.setDelay(Scheduler.DELAY)
 			.setRule(Scheduler.RULE)

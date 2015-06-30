@@ -12,6 +12,7 @@ import com.google.common.eventbus.Subscribe;
 import com.laboki.eclipse.plugin.javasyntaxfixer.events.RemoveTokenEvent;
 import com.laboki.eclipse.plugin.javasyntaxfixer.instance.EventBusInstance;
 import com.laboki.eclipse.plugin.javasyntaxfixer.task.AsyncTask;
+import com.laboki.eclipse.plugin.javasyntaxfixer.task.BaseTask;
 import com.laboki.eclipse.plugin.javasyntaxfixer.task.Task;
 
 public final class Remover extends EventBusInstance {
@@ -32,6 +33,13 @@ public final class Remover extends EventBusInstance {
 			execute() {
 				new RemoverTask().setObject(event).start();
 			}
+
+			@Override
+			protected boolean
+			shouldSchedule() {
+				return BaseTask.noTaskFamilyExists(Scheduler.FAMILY);
+			}
+
 		}.setDelay(Scheduler.DELAY)
 			.setFamily(Scheduler.FAMILY)
 			.setRule(Scheduler.RULE)
@@ -64,6 +72,11 @@ public final class Remover extends EventBusInstance {
 			return this.getToken().length() > 1;
 		}
 
+		private String
+		getToken() {
+			return ((RemoveTokenEvent) this.getObject()).getToken();
+		}
+
 		private void
 		removeToken() {
 			try {
@@ -77,11 +90,6 @@ public final class Remover extends EventBusInstance {
 		private void
 		tryToRemove() throws BadLocationException {
 			Remover.this.document.get().replace(this.getLocation(), 1, "");
-		}
-
-		private String
-		getToken() {
-			return ((RemoveTokenEvent) this.getObject()).getToken();
 		}
 
 		private int

@@ -15,12 +15,22 @@ import com.google.common.eventbus.Subscribe;
 import com.laboki.eclipse.plugin.javasyntaxfixer.events.FindErrorsEvent;
 import com.laboki.eclipse.plugin.javasyntaxfixer.events.ProblemsFoundEvent;
 import com.laboki.eclipse.plugin.javasyntaxfixer.instance.EventBusInstance;
+import com.laboki.eclipse.plugin.javasyntaxfixer.task.BaseTask;
 import com.laboki.eclipse.plugin.javasyntaxfixer.task.Task;
 
 public final class ProblemsFinder extends EventBusInstance {
 
 	private final Optional<ICompilationUnit> unit =
 		ProblemsFinder.getCompilationUnit();
+
+	private static Optional<ICompilationUnit>
+	getCompilationUnit() {
+		final Optional<IFile> file =
+			EditorContext.getFile(EditorContext.getEditor());
+		if (!file.isPresent()) return Optional.absent();
+		return Optional
+			.fromNullable(JavaCore.createCompilationUnitFrom(file.get()));
+	}
 
 	@Subscribe
 	@AllowConcurrentEvents
@@ -49,17 +59,15 @@ public final class ProblemsFinder extends EventBusInstance {
 				parser.setSource(ProblemsFinder.this.unit.get());
 				return Optional.fromNullable((CompilationUnit) parser.createAST(null));
 			}
+
+			@Override
+			protected boolean
+			shouldSchedule() {
+				return BaseTask.noTaskFamilyExists(Scheduler.FAMILY);
+			}
 		}.setFamily(Scheduler.FAMILY)
 			.setRule(Scheduler.RULE)
 			.setDelay(Scheduler.DELAY)
 			.start();
-	}
-
-	private static Optional<ICompilationUnit>
-	getCompilationUnit() {
-		final Optional<IFile> file =
-			EditorContext.getFile(EditorContext.getEditor());
-		if (!file.isPresent()) return Optional.absent();
-		return Optional.fromNullable(JavaCore.createCompilationUnitFrom(file.get()));
 	}
 }
